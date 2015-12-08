@@ -10,4 +10,6 @@
 #import "Item.h"
 @interface NewItemViewController : UIViewController
 @property Item *NewItem;
+@property Item *itemToEdit;
+@property NSUInteger  itemPathRow;
 @end

@@ -16,7 +16,8 @@
 
 @implementation ListTableViewController
 
-- (void)loadInitialData {
+//初始化时生成固定数据，已不使用
+/*- (void)loadInitialData {
     Item *item1 = [[Item alloc] init];
     item1.itemName = @"工";
     [self.Items addObject:item1];
@@ -30,16 +31,39 @@
     item4.itemName = @"建";
     [self.Items addObject:item4];
 
-}
+}*/
 
 
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue {
     NewItemViewController *source = [segue sourceViewController];
-    Item *item = source.NewItem;
-    if (item != nil) {
-        [self.Items addObject:item];
-        [self.tableView reloadData];
+    
+    
+    if (source.itemToEdit == nil)
+    {
+        //以下为调试语句
+        NSLog(@"unwindToList segue进入新增逻辑");
+        //调试语句结束
+        Item *revItem = source.NewItem;
+        if (revItem != nil)
+        {
+            [self.Items addObject:revItem];
+            [self.tableView reloadData];
+            [self saveListItems];
+        }
+     }
+    else{
+        //todo
+        NSLog(@"unwindToList segue进入编辑逻辑");
+        Item *revItem = source.itemToEdit;
+        if (revItem != nil)
+        {
+            NSLog(@"所编辑行号为%zd",source.itemPathRow);
+            [self.Items replaceObjectAtIndex:source.itemPathRow withObject:revItem];
+            [self.tableView reloadData];
+            [self saveListItems];
+        }
     }
+
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -51,17 +75,75 @@
     return self;
 }
 
+
+-(void)loadListItems{
+    NSString *path =[self dataFilePath];
+    if([[NSFileManager defaultManager]fileExistsAtPath:path])
+    {
+        
+        NSData *data = [[NSData alloc]initWithContentsOfFile:path ];
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc]initForReadingWithData:data];
+        self.Items = [unarchiver decodeObjectForKey:@"Items"];
+        [unarchiver finishDecoding];
+        NSLog(@"已执行完成finishDecoding");
+        //以下为调试语句
+        //for (Item * object in self.Items)
+        //{
+        //    NSLog(@"数组对象:%@", object.itemName);
+        // }
+        //调试语句结束
+    }else
+    {
+        self.Items = [[NSMutableArray alloc]initWithCapacity:20];
+    }
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder{
+    if((self =[super initWithCoder:aDecoder]))
+    {
+        NSLog(@"下面即将执行loadListItems");
+        [self loadListItems];
+    }
+    return self;
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.Items = [[NSMutableArray alloc] init];
-    [self loadInitialData];
+    //self.Items = [[NSMutableArray alloc] init];
+    //[self loadInitialData];
+    
+    //NSLog(@"文件夹的目录是:%@",[self documentsDirectory]);
+    //NSLog(@"数据文件的路径是:%@",[self dataFilePath]);
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+
+//获取Documents目录的完整路径
+-(NSString*)documentsDirectory{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths firstObject]; return documentsDirectory;
+}
+
+//数据文件的存储路径
+-(NSString*)dataFilePath{
+    return [[self documentsDirectory]stringByAppendingPathComponent:@"Lists.plist"];
+}
+
+//把数据保存到文件
+-(void)saveListItems{
+    NSLog(@"下面即将执行saveListItems");
+    NSMutableData *data = [[NSMutableData alloc]init];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc]initForWritingWithMutableData:data];
+    [archiver encodeObject:self.Items forKey:@"Items"];
+    [archiver finishEncoding];
+    [data writeToFile:[self dataFilePath] atomically:YES];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -91,11 +173,11 @@
     // Configure the cell...
     Item *item1 = [self.Items objectAtIndex:indexPath.row];
     cell.textLabel.text = item1.itemName;
-    if (item1.completed) {
+    /*if (item1.completed) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
-    }
+    }*/
     return cell;
 }
 
@@ -138,7 +220,7 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -146,8 +228,23 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"AddItem"])
+    {
+
+        //UINavigationController *navigationController = segue.destinationViewController;
+        //NewItemViewController *controller = (NewItemViewController*) navigationController.topViewController;
+        //controller.delegate = self;
+    }else if([segue.identifier isEqualToString:@"EditItem"])
+    {
+        UINavigationController *navigationController = segue.destinationViewController;
+        NewItemViewController *controller = (NewItemViewController*) navigationController.topViewController;
+        //controller.delegate = self;
+        NSIndexPath * indexPath = [self.tableView indexPathForCell:sender];
+        controller.itemToEdit = self.Items[indexPath.row];
+        controller.itemPathRow=indexPath.row;
+    }
 }
-*/
+
 
 
 #pragma mark - Table view delegate
@@ -156,21 +253,19 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath
                                                                     *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    Item *tappedItem = [self.Items objectAtIndex:indexPath.row];
-    tappedItem.completed = !tappedItem.completed;
+    //Item *tappedItem = [self.Items objectAtIndex:indexPath.row];
+    //tappedItem.completed = !tappedItem.completed;
     [tableView reloadRowsAtIndexPaths:@[indexPath]
                      withRowAnimation:UITableViewRowAnimationNone];
 }
 
 
-
-
-
-
-
-
-
-
+-(void)tableView:(UITableView *)tableView commitEditingStyle: (UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self.Items removeObjectAtIndex:indexPath.row];
+    [self saveListItems];
+    NSArray *indexPaths = @[indexPath];
+    [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+}
 
 
 @end

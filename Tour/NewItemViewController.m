@@ -29,6 +29,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    if(self.itemToEdit != nil)
+    {
+        self.title = @"编辑";
+        self.textField.text = self.itemToEdit.itemName;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,10 +51,24 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if (sender != self.saveButton) return;
-    if (self.textField.text.length > 0) {
-        self.NewItem = [[Item alloc] init];
-        self.NewItem.itemName = self.textField.text;
-        self.NewItem.completed = NO;
+    if (self.textField.text.length > 0)
+    {
+        if (self.itemToEdit == nil)
+        {
+            //以下为调试语句
+            NSLog(@"进入新增逻辑");
+            //调试语句结束
+            self.NewItem = [[Item alloc] init];
+            self.NewItem.itemName = self.textField.text;
+        } else
+        {
+            //以下为调试语句
+            NSLog(@"进入编辑逻辑");
+            //调试语句结束
+            self.itemToEdit.itemName = self.textField.text;
+        }
+
+        //self.NewItem.completed = NO;
     }
 }
 

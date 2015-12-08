@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Item : NSObject
+@interface Item : NSObject <NSCoding>
+
 @property NSString *itemName;
-@property BOOL completed;
+//@property BOOL completed;
 @property (readonly) NSDate *creationDate;
+
 @end

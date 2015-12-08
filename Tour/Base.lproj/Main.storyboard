@@ -61,15 +61,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ListPrototypeCell" textLabel="M6d-i5-fKh" style="IBUITableViewCellStyleDefault" id="HPM-JZ-u3X">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ListPrototypeCell" textLabel="M6d-i5-fKh" style="IBUITableViewCellStyleDefault" id="HPM-JZ-u3X">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HPM-JZ-u3X" id="diP-7i-OIt">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="253" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="M6d-i5-fKh">
-                                            <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                                            <rect key="frame" x="15" y="0.0" width="238" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -77,6 +77,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="Vl9-7t-L3S" kind="modal" identifier="EditItem" trigger="accessoryAction" id="VU6-tG-0pP"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
@@ -88,7 +91,7 @@
                     <navigationItem key="navigationItem" title="账户" id="49q-fx-Loh">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Uz3-Hd-EFD">
                             <connections>
-                                <segue destination="Vl9-7t-L3S" kind="modal" id="ldD-Z2-qMD"/>
+                                <segue destination="Vl9-7t-L3S" kind="modal" identifier="AddItem" id="ldD-Z2-qMD"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -139,4 +142,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="ldD-Z2-qMD"/>
+    </inferredMetricsTieBreakers>
 </document>
