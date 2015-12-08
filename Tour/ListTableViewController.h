@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@class DataModel;
 @interface ListTableViewController : UITableViewController
-
+@property(nonatomic,strong)DataModel *dataModel;
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue;
 
 @end

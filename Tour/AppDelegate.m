@@ -7,12 +7,33 @@
 //
 
 #import "AppDelegate.h"
+#import "DataModel.h"
+#import "ListTableViewController.h"
 
-@implementation AppDelegate
+@implementation AppDelegate{
+    DataModel *_dataModel;
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    //本地通知测试
+    /*NSDate *date = [NSDate dateWithTimeIntervalSinceNow:10];
+    UILocalNotification *localNotification = [[UILocalNotification alloc]init];
+    [[UIApplication sharedApplication]scheduleLocalNotification:localNotification];
+    localNotification.fireDate = date;
+    localNotification.timeZone = [NSTimeZone defaultTimeZone];
+    localNotification.alertBody = @"本地通知测试消息";
+    localNotification.soundName = UILocalNotificationDefaultSoundName;
+    [[UIApplication sharedApplication]scheduleLocalNotification:localNotification];*/
+    
+    _dataModel = [[DataModel alloc]init];
+    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+    ListTableViewController *controller = navigationController.viewControllers[0];
+    controller.dataModel = _dataModel;
+    
     return YES;
 }
 							
