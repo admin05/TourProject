@@ -111,12 +111,8 @@
     
     // Configure the cell...
     Item *item1 = [self.dataModel.listItems objectAtIndex:indexPath.row];
-    cell.textLabel.text = item1.itemName;
-    /*if (item1.completed) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }*/
+    //cell.textLabel.text = item1.itemName;
+    cell.textLabel.text = [NSString stringWithFormat:@"%ld: %@",(long)item1.itemId,item1.itemName];
     return cell;
 }
 

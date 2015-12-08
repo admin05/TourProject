@@ -13,7 +13,7 @@
 
 -(id)init{
     if((self =[super init])){
-//        self.itemId = [DataModel nextChecklistItemId];
+       self.itemId = [DataModel nextListItemId];
     }
     return self;
 }

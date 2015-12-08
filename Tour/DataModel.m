@@ -64,10 +64,10 @@
     return self;
 }
 
-+(NSInteger)nextItemId{
++(NSInteger)nextListItemId{
     NSUserDefaults *userDefaults =[NSUserDefaults standardUserDefaults];
     NSInteger itemId = [userDefaults integerForKey:@"ItemId"];
-    [userDefaults setInteger:itemId +1 forKey:@"ChecklistItemId"];
+    [userDefaults setInteger:itemId +1 forKey:@"ItemId"];
     [userDefaults synchronize];
     return itemId;
 }

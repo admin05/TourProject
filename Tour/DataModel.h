@@ -12,5 +12,5 @@
 @property(nonatomic,strong)NSMutableArray *listItems;
 -(void)saveListItems;
 -(void)loadListItems;
-+(NSInteger)nextItemId;
++(NSInteger)nextListItemId;
 @end
