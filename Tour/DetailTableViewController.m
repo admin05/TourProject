@@ -1,24 +1,24 @@
 //
-//  NewItemViewController.m
+//  DetailTableViewController.m
 //  Tour
 //
-//  Created by rock on 10/19/15.
+//  Created by rock on 12/9/15.
 //  Copyright (c) 2015 rock. All rights reserved.
 //
 
-#import "NewItemViewController.h"
+#import "DetailTableViewController.h"
 
-@interface NewItemViewController ()
+@interface DetailTableViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 
 @end
 
-@implementation NewItemViewController
+@implementation DetailTableViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
     }
@@ -28,12 +28,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
     if(self.itemToEdit != nil)
     {
         self.title = @"编辑";
         self.textField.text = self.itemToEdit.itemName;
+    }else{
+        self.title = @"新增";
     }
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,14 +45,37 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    return 1;
+    //return [self.dataModel.listItems count];
+}
+
+
+/*- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ListPrototypeCell" forIndexPath:indexPath];
+    
+    // Configure the cell...
+
+    return cell;
+}*/
+
+
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
     if (sender != self.saveButton) return;
     if (self.textField.text.length > 0)
     {
@@ -67,7 +93,7 @@
             //调试语句结束
             self.itemToEdit.itemName = self.textField.text;
         }
-
+        
         //self.NewItem.completed = NO;
     }
 }

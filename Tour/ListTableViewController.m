@@ -8,8 +8,8 @@
 
 #import "ListTableViewController.h"
 #import "Item.h"
-#import "NewItemViewController.h"
 #import "DataModel.h"
+#import "DetailTableViewController.h"
 
 @interface ListTableViewController ()
 
@@ -19,7 +19,7 @@
 
 
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue {
-    NewItemViewController *source = [segue sourceViewController];
+    DetailTableViewController *source = [segue sourceViewController];
     
     
     if (source.itemToEdit == nil)
@@ -163,16 +163,10 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if([segue.identifier isEqualToString:@"AddItem"])
-    {
-
-        //UINavigationController *navigationController = segue.destinationViewController;
-        //NewItemViewController *controller = (NewItemViewController*) navigationController.topViewController;
-        //controller.delegate = self;
-    }else if([segue.identifier isEqualToString:@"EditItem"])
+    if([segue.identifier isEqualToString:@"EditItem"])
     {
         UINavigationController *navigationController = segue.destinationViewController;
-        NewItemViewController *controller = (NewItemViewController*) navigationController.topViewController;
+        DetailTableViewController *controller = (DetailTableViewController*) navigationController.topViewController;
         //controller.delegate = self;
         NSIndexPath * indexPath = [self.tableView indexPathForCell:sender];
         controller.itemToEdit = self.dataModel.listItems[indexPath.row];

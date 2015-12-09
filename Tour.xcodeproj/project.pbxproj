@@ -21,8 +21,8 @@
 		DD099F1E1BD49C3200BD8B1C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD099F001BD49C3200BD8B1C /* UIKit.framework */; };
 		DD099F261BD49C3200BD8B1C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DD099F241BD49C3200BD8B1C /* InfoPlist.strings */; };
 		DD099F281BD49C3200BD8B1C /* TourTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DD099F271BD49C3200BD8B1C /* TourTests.m */; };
-		DD87D99B1BD4EABB001A9E5D /* NewItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD87D99A1BD4EABB001A9E5D /* NewItemViewController.m */; };
 		DD9BE2B11C16C1E500164772 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9BE2B01C16C1E500164772 /* DataModel.m */; };
+		DD9FBCEF1C17CA6000E12815 /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9FBCEE1C17CA6000E12815 /* DetailTableViewController.m */; };
 		DDA1F3B51BD5E11E0062FA2D /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA1F3B41BD5E11E0062FA2D /* Item.m */; };
 		DDB05E971BD4EB64007584E5 /* ListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB05E961BD4EB64007584E5 /* ListTableViewController.m */; };
 /* End PBXBuildFile section */
@@ -57,10 +57,10 @@
 		DD099F231BD49C3200BD8B1C /* TourTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TourTests-Info.plist"; sourceTree = "<group>"; };
 		DD099F251BD49C3200BD8B1C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DD099F271BD49C3200BD8B1C /* TourTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TourTests.m; sourceTree = "<group>"; };
-		DD87D9991BD4EABB001A9E5D /* NewItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewItemViewController.h; sourceTree = "<group>"; };
-		DD87D99A1BD4EABB001A9E5D /* NewItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewItemViewController.m; sourceTree = "<group>"; };
 		DD9BE2AF1C16C1E500164772 /* DataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
 		DD9BE2B01C16C1E500164772 /* DataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataModel.m; sourceTree = "<group>"; };
+		DD9FBCED1C17CA6000E12815 /* DetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableViewController.h; sourceTree = "<group>"; };
+		DD9FBCEE1C17CA6000E12815 /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
 		DDA1F3B31BD5E11E0062FA2D /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
 		DDA1F3B41BD5E11E0062FA2D /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		DDB05E951BD4EB64007584E5 /* ListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListTableViewController.h; sourceTree = "<group>"; };
@@ -131,14 +131,14 @@
 				DD099F121BD49C3200BD8B1C /* ViewController.m */,
 				DD099F141BD49C3200BD8B1C /* Images.xcassets */,
 				DD099F031BD49C3200BD8B1C /* Supporting Files */,
-				DD87D9991BD4EABB001A9E5D /* NewItemViewController.h */,
-				DD87D99A1BD4EABB001A9E5D /* NewItemViewController.m */,
 				DDB05E951BD4EB64007584E5 /* ListTableViewController.h */,
 				DDB05E961BD4EB64007584E5 /* ListTableViewController.m */,
 				DDA1F3B31BD5E11E0062FA2D /* Item.h */,
 				DDA1F3B41BD5E11E0062FA2D /* Item.m */,
 				DD9BE2AF1C16C1E500164772 /* DataModel.h */,
 				DD9BE2B01C16C1E500164772 /* DataModel.m */,
+				DD9FBCED1C17CA6000E12815 /* DetailTableViewController.h */,
+				DD9FBCEE1C17CA6000E12815 /* DetailTableViewController.m */,
 			);
 			path = Tour;
 			sourceTree = "<group>";
@@ -269,10 +269,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD9FBCEF1C17CA6000E12815 /* DetailTableViewController.m in Sources */,
 				DDA1F3B51BD5E11E0062FA2D /* Item.m in Sources */,
 				DD099F131BD49C3200BD8B1C /* ViewController.m in Sources */,
 				DD099F0D1BD49C3200BD8B1C /* AppDelegate.m in Sources */,
-				DD87D99B1BD4EABB001A9E5D /* NewItemViewController.m in Sources */,
 				DD9BE2B11C16C1E500164772 /* DataModel.m in Sources */,
 				DD099F091BD49C3200BD8B1C /* main.m in Sources */,
 				DDB05E971BD4EB64007584E5 /* ListTableViewController.m in Sources */,

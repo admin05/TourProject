@@ -4,6 +4,79 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
+        <!--Detail Table View Controller-->
+        <scene sceneID="ixd-NG-cDl">
+            <objects>
+                <tableViewController id="PuS-yb-Rps" customClass="DetailTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="15x-Tp-1Jo">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="zVt-uW-gAe">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ERB-my-do1">
+                                        <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ERB-my-do1" id="5kW-aF-Kyb">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="账户名称" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1PE-K1-wYj">
+                                                    <rect key="frame" x="11" y="13" width="298" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="uh5-Gi-hW5">
+                                        <rect key="frame" x="0.0" y="108" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uh5-Gi-hW5" id="eHf-zW-lEv">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="6bX-gO-o8N">
+                                        <rect key="frame" x="0.0" y="152" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6bX-gO-o8N" id="4hT-RG-xOX">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="PuS-yb-Rps" id="bQ4-om-3hN"/>
+                            <outlet property="delegate" destination="PuS-yb-Rps" id="VAK-d9-4VR"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="6dx-5t-bHa">
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="Roi-R3-seg">
+                            <connections>
+                                <segue destination="mi5-sM-FSy" kind="unwind" unwindAction="unwindToList:" id="atT-9S-Txi"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="完成" id="19F-qH-WYu">
+                            <connections>
+                                <segue destination="mi5-sM-FSy" kind="unwind" unwindAction="unwindToList:" id="eb0-En-lqh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="saveButton" destination="19F-qH-WYu" id="mVP-j2-tjV"/>
+                        <outlet property="textField" destination="1PE-K1-wYj" id="18v-zd-OpO"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bcx-xt-Uad" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="mi5-sM-FSy" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2833" y="-173"/>
+        </scene>
         <!--New Item View Controller - 添加账户-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
@@ -36,7 +109,7 @@
                                 </date>
                                 <locale key="locale" localeIdentifier="zh_CN"/>
                                 <timeZone key="timeZone" name="America/Los_Angeles">
-                                    <mutableData key="data">
+                                    <data key="data">
 VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
 y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
 5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
@@ -54,7 +127,7 @@ f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
-</mutableData>
+</data>
                                 </timeZone>
                             </datePicker>
                         </subviews>
@@ -85,7 +158,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
                 <exit id="V1s-Mg-NbQ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2664" y="-173"/>
+            <point key="canvasLocation" x="2833" y="-924"/>
         </scene>
         <!--List Table View Controller - 账户-->
         <scene sceneID="8uR-Mz-qcw">
@@ -113,7 +186,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Vl9-7t-L3S" kind="modal" identifier="EditItem" trigger="accessoryAction" id="VU6-tG-0pP"/>
+                                    <segue destination="toL-cj-FYH" kind="modal" identifier="EditItem" trigger="accessoryAction" id="G7y-w7-eP8"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -126,7 +199,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     <navigationItem key="navigationItem" title="账户" id="49q-fx-Loh">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Uz3-Hd-EFD">
                             <connections>
-                                <segue destination="Vl9-7t-L3S" kind="modal" identifier="AddItem" id="ldD-Z2-qMD"/>
+                                <segue destination="toL-cj-FYH" kind="modal" identifier="AddItem" id="hDr-R1-9Us"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -154,22 +227,23 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             <point key="canvasLocation" x="1208" y="-173"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="rCq-Gb-u7L">
+        <scene sceneID="5ez-PF-Bvg">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Vl9-7t-L3S" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="toL-cj-FYH" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pIT-wN-DXR">
+                    <navigationItem key="navigationItem" id="eHj-94-ImE"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fVZ-XS-h0l">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="iUt-c6-Owf"/>
+                        <segue destination="PuS-yb-Rps" kind="relationship" relationship="rootViewController" id="I2t-5w-e90"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UZd-pY-cZf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7ni-4i-MTq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2138" y="-173"/>
+            <point key="canvasLocation" x="2295" y="-173"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -178,6 +252,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ldD-Z2-qMD"/>
+        <segue reference="G7y-w7-eP8"/>
     </inferredMetricsTieBreakers>
 </document>
