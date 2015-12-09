@@ -10,6 +10,7 @@
 
 @interface DataModel : NSObject
 @property(nonatomic,strong)NSMutableArray *listItems;
+@property(nonatomic,copy)NSDate *dueDate;
 -(void)saveListItems;
 -(void)loadListItems;
 +(NSInteger)nextListItemId;

@@ -72,16 +72,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //self.Items = [[NSMutableArray alloc] init];
-    //[self loadInitialData];
-    
-    //NSLog(@"文件夹的目录是:%@",[self documentsDirectory]);
-    //NSLog(@"数据文件的路径是:%@",[self dataFilePath]);
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
 }
 
 - (void)didReceiveMemoryWarning

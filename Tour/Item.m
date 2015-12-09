@@ -13,13 +13,14 @@
 
 -(id)init{
     if((self =[super init])){
-       self.itemId = [DataModel nextListItemId];
-    }
+        self.itemId = [DataModel nextListItemId];
+   }
     return self;
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:self.itemName forKey:@"itemName"];
+    [aCoder encodeObject:[NSNumber numberWithDouble: self.money] forKey:@"money"];
     [aCoder encodeObject:self.dueDate forKey:@"dueDate"];
     [aCoder encodeInteger:self.itemId forKey:@"itemId"];
 }
@@ -28,6 +29,8 @@
     if((self =[super init]))
     {
         self.itemName = [aDecoder decodeObjectForKey:@"itemName"];
+        NSNumber *tempNum = [aDecoder decodeObjectForKey:@"money"];
+        self.money = tempNum.doubleValue;
         self.dueDate = [aDecoder decodeObjectForKey:@"dueDate"];
         self.itemId = [aDecoder decodeIntegerForKey:@"itemId"];
     }
