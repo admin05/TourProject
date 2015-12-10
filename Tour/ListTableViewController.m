@@ -104,6 +104,7 @@
     Item *item1 = [self.dataModel.listItems objectAtIndex:indexPath.row];
     //cell.textLabel.text = item1.itemName;
     cell.textLabel.text = [NSString stringWithFormat:@"%ld: %@",(long)item1.itemId,item1.itemName];
+    cell.detailTextLabel.text = @(item1.money).stringValue;
     return cell;
 }
 

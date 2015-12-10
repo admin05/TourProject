@@ -10,7 +10,6 @@
 @class DataModel;
 @interface ListTableViewController : UITableViewController
 @property(nonatomic,strong)DataModel *dataModel;
-@property(nonatomic,weak) IBOutlet UILabel *dueDateLabel;
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue;
 
 @end

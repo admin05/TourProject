@@ -15,6 +15,9 @@
 
 @end
 
+int const _dueDateRow = 2;
+int const _datePickerRow = 3;
+
 @implementation DetailTableViewController{
     NSDate *_dueDate;
     BOOL _datePickerVisible;
@@ -37,8 +40,10 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
     
+    [super viewDidLoad];
+    self.itemNameField.delegate=self;
+    self.moneyField.delegate=self;
     if(self.itemToEdit == nil)
     {
         self.title = @"新增";
@@ -74,8 +79,8 @@
 -(void)hideDatePicker{
     if(_datePickerVisible){
         _datePickerVisible = NO;
-        NSIndexPath *indexPathDateRow = [NSIndexPath indexPathForRow:1 inSection:1];
-        NSIndexPath *indexPathDatePicker = [NSIndexPath indexPathForRow:2 inSection:1];
+        NSIndexPath *indexPathDateRow = [NSIndexPath indexPathForRow:_dueDateRow inSection:0];
+        NSIndexPath *indexPathDatePicker = [NSIndexPath indexPathForRow:_datePickerRow inSection:0];
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPathDateRow];
         cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
         [self.tableView beginUpdates];
@@ -105,7 +110,7 @@
     //调试语句结束
     
     //检查当前是否存在日期选择器所在行对应的index-path,如果没有,跳转到第5步
-    if(indexPath.section ==0 &&indexPath.row ==3)
+    if(indexPath.section ==0 &&indexPath.row == _datePickerRow)
     {
         //调试语句开始
         NSLog(@"即将开始取cell, row:%zd",indexPath.row);
@@ -155,7 +160,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.section ==0 &&indexPath.row ==3)
+    if(indexPath.section ==0 &&indexPath.row ==_datePickerRow)
     {
         return 217.0f;
     }else{
@@ -166,15 +171,15 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.itemNameField resignFirstResponder];
+    [self.moneyField resignFirstResponder];
     //调试语句开始
     NSLog(@"didSelectRowAtIndexPath section:%zd,row:%zd",indexPath.section,indexPath.row);
     //调试语句结束
-    if(indexPath.section ==0 &&indexPath.row ==2){
+    if(indexPath.section ==0 &&indexPath.row == _dueDateRow){
         if(!_datePickerVisible){
             //调试语句开始
             NSLog(@"didSelectRowAtIndexPath 即将showDatePicker");
             //调试语句结束
-            
             [self showDatePicker];
         }else{
             //调试语句开始
@@ -190,12 +195,14 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath: (NSIndexPath *)indexPath{
-    if(indexPath.section ==0 &&indexPath.row ==3){
+    if(indexPath.section ==0 &&indexPath.row ==3)
+    {
         NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:0
                                                        inSection:indexPath.section];
         return [super tableView:tableView indentationLevelForRowAtIndexPath:newIndexPath];
     }else{
-        return [super tableView:tableView indentationLevelForRowAtIndexPath:indexPath]; }
+        return [super tableView:tableView indentationLevelForRowAtIndexPath:indexPath];
+    }
 }
 
 #pragma mark - Navigation
