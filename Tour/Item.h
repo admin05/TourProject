@@ -15,5 +15,5 @@
 @property (readonly) NSDate *creationDate;
 @property(nonatomic,copy)NSDate *dueDate;
 @property(nonatomic,assign) NSInteger itemId;
-
+-(void)scheduleNotification;
 @end

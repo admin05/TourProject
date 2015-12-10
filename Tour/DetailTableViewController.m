@@ -216,20 +216,23 @@ int const _datePickerRow = 3;
         if (self.itemToEdit == nil)
         {
             //调试语句开始
-            NSLog(@"开始新增处理");
+            NSLog(@"准备传递新增对象");
             //调试语句结束
             self.NewItem = [[Item alloc] init];
             self.NewItem.itemName = self.itemNameField.text;
             self.NewItem.money = [self.moneyField.text doubleValue];
             self.NewItem.dueDate = _dueDate;
+            [self.NewItem scheduleNotification];
+  
         } else
         {
             //调试语句开始
-            NSLog(@"开始编辑处理");
+            NSLog(@"准备传递编辑对象");
             //调试语句结束
             self.itemToEdit.itemName = self.itemNameField.text;
             self.itemToEdit.money = [self.moneyField.text doubleValue];
             self.itemToEdit.dueDate = _dueDate;
+            [self.itemToEdit scheduleNotification];
         }
         
         //self.NewItem.completed = NO;
