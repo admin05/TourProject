@@ -24,8 +24,8 @@
     
     if (source.itemToEdit == nil)
     {
-        //以下为调试语句
-        NSLog(@"unwindToList segue进入新增逻辑");
+        //调试语句开始
+        NSLog(@"unwindToList 列表页开始新增处理");
         //调试语句结束
         Item *revItem = source.NewItem;
         if (revItem != nil)
@@ -36,12 +36,15 @@
         }
      }
     else{
-        //todo
-        NSLog(@"unwindToList segue进入编辑逻辑");
+        //调试语句开始
+        NSLog(@"unwindToList 列表页开始编辑处理");
+        //调试语句结束
         Item *revItem = source.itemToEdit;
         if (revItem != nil)
         {
+            //调试语句开始
             NSLog(@"所编辑行号为%zd",source.itemPathRow);
+            //调试语句结束
             [self.dataModel.listItems replaceObjectAtIndex:source.itemPathRow withObject:revItem];
             [self.tableView reloadData];
             [self.dataModel saveListItems];

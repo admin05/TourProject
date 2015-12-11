@@ -14,7 +14,6 @@
 @property Item *NewItem;  //新增的项目
 @property Item *itemToEdit;  //编辑的项目
 @property NSUInteger itemPathRow; // 编辑的项目所在行号
-@property (weak, nonatomic) IBOutlet UILabel *dueDateLabel;
 
 
 @end

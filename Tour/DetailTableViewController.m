@@ -12,13 +12,16 @@
 @property (weak, nonatomic) IBOutlet UITextField *itemNameField;
 @property (weak, nonatomic) IBOutlet UITextField *moneyField;
 @property (weak, nonatomic) IBOutlet UITextField *rateField;
+@property (weak, nonatomic) IBOutlet UILabel *dueDateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *incomeLabel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 
 
 @end
-
-int const _dueDateRow = 3;
-int const _datePickerRow = 4;
+//起始row为0
+int const _incomeRow = 3;
+int const _dueDateRow = 4;
+int const _datePickerRow = 5;
 
 @implementation DetailTableViewController{
     NSDate *_dueDate;
@@ -40,6 +43,47 @@ int const _datePickerRow = 4;
     self.dueDateLabel.text = [formatter stringFromDate:_dueDate];
 }
 
+- (NSInteger)daysBetweenDate:(NSDate*)fromDateTime andDate:(NSDate*)toDateTime
+{
+    NSDate *fromDate;
+    NSDate *toDate;
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    [calendar rangeOfUnit:NSCalendarUnitDay startDate:&fromDate
+                 interval:NULL forDate:fromDateTime];
+    [calendar rangeOfUnit:NSCalendarUnitDay startDate:&toDate
+                 interval:NULL forDate:toDateTime];
+    
+    NSDateComponents *difference = [calendar components:NSCalendarUnitDay
+                                               fromDate:fromDate toDate:toDate options:0];
+    
+    return [difference day];
+}
+
+-(double)calcIncome
+{
+    //调试语句开始
+    NSLog(@"即将执行calcIncome");
+    //调试语句结束
+
+    //if (self.itemToEdit != nil) {
+        //double income= self.itemToEdit.money*self.itemToEdit.rate /100/360;
+    double income=[self.moneyField.text doubleValue]*[self.rateField.text doubleValue]/100/360;
+    NSInteger days=[self daysBetweenDate:[NSDate date] andDate:_dueDate];
+    income *= days;
+    //调试语句开始
+    NSLog(@"calcIncome执行完毕 %zd",income);
+    //调试语句结束
+    return income;
+    //}
+    //return 0;
+}
+
+-(void)updateIncomeLabel{
+    self.incomeLabel.text =  [NSString stringWithFormat:@"%.2f", [self calcIncome]];
+}
+
 - (void)viewDidLoad
 {
     
@@ -57,12 +101,13 @@ int const _datePickerRow = 4;
         self.moneyField.text = @(self.itemToEdit.money).stringValue;
         self.rateField.text = @(self.itemToEdit.rate).stringValue;
         _dueDate = self.itemToEdit.dueDate;
+        [self updateIncomeLabel];
+        
     }
     
     [self updateDueDateLabel];
     
 }
-
 
 -(void)showDatePicker{
     _datePickerVisible = YES;
@@ -110,19 +155,16 @@ int const _datePickerRow = 4;
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     //调试语句开始
-    NSLog(@"cellForRowAtIndexPath section:%zd,row:%zd",indexPath.section,indexPath.row);
+    //NSLog(@"cellForRowAtIndexPath section:%zd,row:%zd",indexPath.section,indexPath.row);
     //调试语句结束
-    
-    //检查当前是否存在日期选择器所在行对应的index-path,如果没有,跳转到第5步
+    //检查当前是否存在日期选择器所在行对应的index-path
     if(indexPath.section ==0 &&indexPath.row == _datePickerRow)
     {
-        //调试语句开始
-        NSLog(@"即将开始取cell, row:%zd",indexPath.row);
-        //调试语句结束
         //询问表视图是否已经有了日期选择器的cell。如果没有就创建一个新的。
         //selection style(选择样式)是none,因为我们不希望在⽤用户触碰它的时候显⽰示⼀一个已选中的状态。
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DatePickerCell"];
-        if(cell == nil){
+        if(cell == nil)
+        {
             //调试语句开始
             NSLog(@"cell 为空,开始新建日期选择控件,row:%zd",indexPath.row);
             //调试语句结束
@@ -141,11 +183,10 @@ int const _datePickerRow = 4;
             //调试语句结束
         }
         return cell;
-    //对于任何非日期选择器cell对应的index-paths,直接调⽤用super(也就是表视图控制器)。
-    //这样之前的static cell不会受到任何影响。
-    }else{
-        return [super tableView:tableView cellForRowAtIndexPath:indexPath];
+        //对于任何非日期选择器cell对应的index-paths,直接调⽤用super(也就是表视图控制器)。
+        //这样之前的static cell不会受到任何影响。
     }
+    return [super tableView:tableView cellForRowAtIndexPath:indexPath];
 }
 
 
@@ -180,8 +221,12 @@ int const _datePickerRow = 4;
     [self.itemNameField resignFirstResponder];
     [self.moneyField resignFirstResponder];
     [self.rateField resignFirstResponder];
+    [self updateIncomeLabel];
+    
     //调试语句开始
-    NSLog(@"didSelectRowAtIndexPath section:%zd,row:%zd",indexPath.section,indexPath.row);
+    NSLog(@"didSelectRowAtIndexPath money =%@, rate=%@, label= %@",self.moneyField.text,self.rateField.text,
+          self.incomeLabel.text);
+    //NSLog(@"didSelectRowAtIndexPath section:%zd,row:%zd",indexPath.section,indexPath.row);
     //调试语句结束
     if(indexPath.section ==0 &&indexPath.row == _dueDateRow){
         if(!_datePickerVisible){

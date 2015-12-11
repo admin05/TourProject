@@ -63,8 +63,32 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Ll3-Qy-91r" detailTextLabel="KRJ-aS-IDW" style="IBUITableViewCellStyleValue1" id="uh5-Gi-hW5">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="q8D-PC-vWF" detailTextLabel="9mj-3N-6mH" style="IBUITableViewCellStyleValue1" id="7x7-gM-CjC">
                                         <rect key="frame" x="0.0" y="196" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7x7-gM-CjC" id="5h7-aP-Cvg">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="预期收益" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="q8D-PC-vWF">
+                                                    <rect key="frame" x="15" y="11" width="68" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9mj-3N-6mH">
+                                                    <rect key="frame" x="261" y="11" width="44" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Ll3-Qy-91r" detailTextLabel="KRJ-aS-IDW" style="IBUITableViewCellStyleValue1" id="uh5-Gi-hW5">
+                                        <rect key="frame" x="0.0" y="240" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uh5-Gi-hW5" id="eHf-zW-lEv">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -107,7 +131,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="dueDateLabel" destination="KRJ-aS-IDW" id="Y5s-M6-h15"/>
+                        <outlet property="dueDateLabel" destination="KRJ-aS-IDW" id="l4Y-Pz-sEh"/>
+                        <outlet property="incomeLabel" destination="9mj-3N-6mH" id="vCf-Us-anH"/>
                         <outlet property="itemNameField" destination="1PE-K1-wYj" id="GMp-63-CZZ"/>
                         <outlet property="moneyField" destination="FXD-iM-efG" id="k8R-dD-c8c"/>
                         <outlet property="rateField" destination="GZC-D2-GFF" id="zWu-de-Ybe"/>
