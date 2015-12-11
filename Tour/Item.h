@@ -12,6 +12,7 @@
 
 @property NSString *itemName;
 @property double money;
+@property double rate;
 @property (readonly) NSDate *creationDate;
 @property(nonatomic,copy)NSDate *dueDate;
 @property(nonatomic,assign) NSInteger itemId;

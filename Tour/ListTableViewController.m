@@ -101,10 +101,12 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ListPrototypeCell" forIndexPath:indexPath];
     
     // Configure the cell...
-    Item *item1 = [self.dataModel.listItems objectAtIndex:indexPath.row];
-    //cell.textLabel.text = item1.itemName;
-    cell.textLabel.text = [NSString stringWithFormat:@"%ld: %@",(long)item1.itemId,item1.itemName];
-    cell.detailTextLabel.text = @(item1.money).stringValue;
+    Item *cellItem = [self.dataModel.listItems objectAtIndex:indexPath.row];
+    cell.textLabel.text = cellItem.itemName;
+    //cell.textLabel.text = [NSString stringWithFormat:@"%ld: %@",(long)cellItem.itemId,cellItem.itemName];
+    //cell.detailTextLabel.text = @(cellItem.money).stringValue;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@+%@%%", @(cellItem.money).stringValue, @(cellItem.rate).stringValue ];
+    
     return cell;
 }
 

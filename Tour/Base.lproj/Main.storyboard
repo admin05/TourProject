@@ -47,8 +47,24 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Ll3-Qy-91r" detailTextLabel="KRJ-aS-IDW" style="IBUITableViewCellStyleValue1" id="uh5-Gi-hW5">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ZU4-yw-Ezb">
                                         <rect key="frame" x="0.0" y="152" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZU4-yw-Ezb" id="sky-5q-T2U">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="年化收益率(%)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GZC-D2-GFF">
+                                                    <rect key="frame" x="10" y="7" width="300" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Ll3-Qy-91r" detailTextLabel="KRJ-aS-IDW" style="IBUITableViewCellStyleValue1" id="uh5-Gi-hW5">
+                                        <rect key="frame" x="0.0" y="196" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uh5-Gi-hW5" id="eHf-zW-lEv">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -94,6 +110,7 @@
                         <outlet property="dueDateLabel" destination="KRJ-aS-IDW" id="Y5s-M6-h15"/>
                         <outlet property="itemNameField" destination="1PE-K1-wYj" id="GMp-63-CZZ"/>
                         <outlet property="moneyField" destination="FXD-iM-efG" id="k8R-dD-c8c"/>
+                        <outlet property="rateField" destination="GZC-D2-GFF" id="zWu-de-Ybe"/>
                         <outlet property="saveButton" destination="19F-qH-WYu" id="mVP-j2-tjV"/>
                     </connections>
                 </tableViewController>

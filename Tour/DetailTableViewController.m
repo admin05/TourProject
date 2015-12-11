@@ -11,12 +11,14 @@
 @interface DetailTableViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *itemNameField;
 @property (weak, nonatomic) IBOutlet UITextField *moneyField;
+@property (weak, nonatomic) IBOutlet UITextField *rateField;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
+
 
 @end
 
-int const _dueDateRow = 2;
-int const _datePickerRow = 3;
+int const _dueDateRow = 3;
+int const _datePickerRow = 4;
 
 @implementation DetailTableViewController{
     NSDate *_dueDate;
@@ -44,6 +46,7 @@ int const _datePickerRow = 3;
     [super viewDidLoad];
     self.itemNameField.delegate=self;
     self.moneyField.delegate=self;
+    self.rateField.delegate=self;
     if(self.itemToEdit == nil)
     {
         self.title = @"新增";
@@ -52,6 +55,7 @@ int const _datePickerRow = 3;
         self.title = @"编辑";
         self.itemNameField.text = self.itemToEdit.itemName;
         self.moneyField.text = @(self.itemToEdit.money).stringValue;
+        self.rateField.text = @(self.itemToEdit.rate).stringValue;
         _dueDate = self.itemToEdit.dueDate;
     }
     
@@ -62,13 +66,13 @@ int const _datePickerRow = 3;
 
 -(void)showDatePicker{
     _datePickerVisible = YES;
-    NSIndexPath *indexPathDateRow = [NSIndexPath indexPathForRow:2 inSection:0];
-    NSIndexPath *indexPathDatePicker = [NSIndexPath indexPathForRow:3 inSection:0];
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPathDateRow];
+    NSIndexPath *indexPathDueDateRow = [NSIndexPath indexPathForRow:_dueDateRow inSection:0];
+    NSIndexPath *indexPathDatePicker = [NSIndexPath indexPathForRow:_datePickerRow inSection:0];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPathDueDateRow];
     cell.detailTextLabel.textColor = cell.detailTextLabel.tintColor;
     [self.tableView beginUpdates];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPathDueDateRow] withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView insertRowsAtIndexPaths:@[indexPathDatePicker] withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView reloadRowsAtIndexPaths:@[indexPathDateRow] withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView endUpdates];
     UITableViewCell *datePickerCell = [self.tableView cellForRowAtIndexPath:indexPathDatePicker];
     UIDatePicker *datePicker = (UIDatePicker*)[datePickerCell viewWithTag:100];
@@ -132,6 +136,9 @@ int const _datePickerRow = 3;
             //告诉日期选择器,每当用户更改了日期的时候调⽤用dateChanged:方法。
             //UIDatePicker的 Value Changed方法将会触发dateChanged方法。
             [datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
+            //调试语句开始
+            NSLog(@"cellForRowAtIndexPath 日期选择控件新建完成");
+            //调试语句结束
         }
         return cell;
     //对于任何非日期选择器cell对应的index-paths,直接调⽤用super(也就是表视图控制器)。
@@ -152,7 +159,7 @@ int const _datePickerRow = 3;
 {
     // Return the number of rows in the section.
     if(section ==0 && _datePickerVisible){
-        return 4;
+        return _datePickerRow+1;
     }else{
         return [super tableView:tableView numberOfRowsInSection:section];
     }
@@ -172,6 +179,7 @@ int const _datePickerRow = 3;
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.itemNameField resignFirstResponder];
     [self.moneyField resignFirstResponder];
+    [self.rateField resignFirstResponder];
     //调试语句开始
     NSLog(@"didSelectRowAtIndexPath section:%zd,row:%zd",indexPath.section,indexPath.row);
     //调试语句结束
@@ -195,7 +203,7 @@ int const _datePickerRow = 3;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath: (NSIndexPath *)indexPath{
-    if(indexPath.section ==0 &&indexPath.row ==3)
+    if(indexPath.section ==0 &&indexPath.row ==_datePickerRow)
     {
         NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:0
                                                        inSection:indexPath.section];
@@ -221,6 +229,7 @@ int const _datePickerRow = 3;
             self.NewItem = [[Item alloc] init];
             self.NewItem.itemName = self.itemNameField.text;
             self.NewItem.money = [self.moneyField.text doubleValue];
+            self.NewItem.rate = [self.rateField.text doubleValue];
             self.NewItem.dueDate = _dueDate;
             [self.NewItem scheduleNotification];
   
@@ -231,11 +240,11 @@ int const _datePickerRow = 3;
             //调试语句结束
             self.itemToEdit.itemName = self.itemNameField.text;
             self.itemToEdit.money = [self.moneyField.text doubleValue];
+            self.itemToEdit.rate = [self.rateField.text doubleValue];
             self.itemToEdit.dueDate = _dueDate;
             [self.itemToEdit scheduleNotification];
         }
         
-        //self.NewItem.completed = NO;
     }
 }
 

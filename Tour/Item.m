@@ -21,6 +21,7 @@
 -(void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:self.itemName forKey:@"itemName"];
     [aCoder encodeObject:[NSNumber numberWithDouble: self.money] forKey:@"money"];
+    [aCoder encodeObject:[NSNumber numberWithDouble: self.rate] forKey:@"rate"];
     [aCoder encodeObject:self.dueDate forKey:@"dueDate"];
     [aCoder encodeInteger:self.itemId forKey:@"itemId"];
 }
@@ -31,6 +32,8 @@
         self.itemName = [aDecoder decodeObjectForKey:@"itemName"];
         NSNumber *tempNum = [aDecoder decodeObjectForKey:@"money"];
         self.money = tempNum.doubleValue;
+        tempNum=[aDecoder decodeObjectForKey:@"rate"];
+        self.rate = tempNum.doubleValue;
         self.dueDate = [aDecoder decodeObjectForKey:@"dueDate"];
         self.itemId = [aDecoder decodeIntegerForKey:@"itemId"];
     }
