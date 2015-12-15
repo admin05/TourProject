@@ -11,6 +11,7 @@
 @interface Item : NSObject <NSCoding>
 
 @property NSString *itemName;
+@property NSString *account;
 @property double money;
 @property double rate;
 @property (readonly) NSDate *creationDate;

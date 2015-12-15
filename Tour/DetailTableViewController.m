@@ -9,19 +9,21 @@
 #import "DetailTableViewController.h"
 
 @interface DetailTableViewController ()
-@property (weak, nonatomic) IBOutlet UITextField *itemNameField;
-@property (weak, nonatomic) IBOutlet UITextField *moneyField;
-@property (weak, nonatomic) IBOutlet UITextField *rateField;
-@property (weak, nonatomic) IBOutlet UILabel *dueDateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *incomeLabel;
+@property (weak, nonatomic) IBOutlet UITextField *itemNameField;  //row0
+@property (weak, nonatomic) IBOutlet UITextField *accountField;   //row1
+@property (weak, nonatomic) IBOutlet UITextField *moneyField;     //row2
+@property (weak, nonatomic) IBOutlet UITextField *rateField;      //row3
+@property (weak, nonatomic) IBOutlet UILabel *incomeLabel;        //row4
+@property (weak, nonatomic) IBOutlet UILabel *dueDateLabel;       //row5
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
+
 
 
 @end
 //起始row为0
-int const _incomeRow = 3;
-int const _dueDateRow = 4;
-int const _datePickerRow = 5;
+int const _incomeRow = 4;
+int const _dueDateRow = 5;
+int const _datePickerRow = 6;
 
 @implementation DetailTableViewController{
     NSDate *_dueDate;
@@ -89,8 +91,10 @@ int const _datePickerRow = 5;
     
     [super viewDidLoad];
     self.itemNameField.delegate=self;
+    self.accountField.delegate=self;
     self.moneyField.delegate=self;
     self.rateField.delegate=self;
+
     if(self.itemToEdit == nil)
     {
         self.title = @"新增";
@@ -98,6 +102,7 @@ int const _datePickerRow = 5;
     }else{
         self.title = @"编辑";
         self.itemNameField.text = self.itemToEdit.itemName;
+        self.accountField.text = self.itemToEdit.account;
         self.moneyField.text = @(self.itemToEdit.money).stringValue;
         self.rateField.text = @(self.itemToEdit.rate).stringValue;
         _dueDate = self.itemToEdit.dueDate;
@@ -219,6 +224,7 @@ int const _datePickerRow = 5;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.itemNameField resignFirstResponder];
+    [self.accountField resignFirstResponder];
     [self.moneyField resignFirstResponder];
     [self.rateField resignFirstResponder];
     [self updateIncomeLabel];
@@ -273,6 +279,7 @@ int const _datePickerRow = 5;
             //调试语句结束
             self.NewItem = [[Item alloc] init];
             self.NewItem.itemName = self.itemNameField.text;
+            self.NewItem.account = self.accountField.text;
             self.NewItem.money = [self.moneyField.text doubleValue];
             self.NewItem.rate = [self.rateField.text doubleValue];
             self.NewItem.dueDate = _dueDate;
@@ -284,6 +291,7 @@ int const _datePickerRow = 5;
             NSLog(@"准备传递编辑对象");
             //调试语句结束
             self.itemToEdit.itemName = self.itemNameField.text;
+            self.itemToEdit.account = self.accountField.text;
             self.itemToEdit.money = [self.moneyField.text doubleValue];
             self.itemToEdit.rate = [self.rateField.text doubleValue];
             self.itemToEdit.dueDate = _dueDate;

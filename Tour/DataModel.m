@@ -44,12 +44,6 @@
         self.listItems = [unarchiver decodeObjectForKey:@"Items"];
         [unarchiver finishDecoding];
         NSLog(@"已执行完成finishDecoding");
-        //以下为调试语句
-        //for (Item * object in self.Items)
-        //{
-        //    NSLog(@"数组对象:%@", object.itemName);
-        // }
-        //调试语句结束
     }else
     {
         self.listItems = [[NSMutableArray alloc]initWithCapacity:20];

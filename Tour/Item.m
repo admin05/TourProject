@@ -20,6 +20,7 @@
 
 -(void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:self.itemName forKey:@"itemName"];
+    [aCoder encodeObject:self.account forKey:@"account"];
     [aCoder encodeObject:[NSNumber numberWithDouble: self.money] forKey:@"money"];
     [aCoder encodeObject:[NSNumber numberWithDouble: self.rate] forKey:@"rate"];
     [aCoder encodeObject:self.dueDate forKey:@"dueDate"];
@@ -30,6 +31,7 @@
     if((self =[super init]))
     {
         self.itemName = [aDecoder decodeObjectForKey:@"itemName"];
+        self.account = [aDecoder decodeObjectForKey:@"account"];
         NSNumber *tempNum = [aDecoder decodeObjectForKey:@"money"];
         self.money = tempNum.doubleValue;
         tempNum=[aDecoder decodeObjectForKey:@"rate"];
