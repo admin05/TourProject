@@ -58,12 +58,21 @@
     return self;
 }
 
+//计算项目id供添加或删除本地提醒时使用
 +(NSInteger)nextListItemId{
     NSUserDefaults *userDefaults =[NSUserDefaults standardUserDefaults];
     NSInteger itemId = [userDefaults integerForKey:@"ItemId"];
     [userDefaults setInteger:itemId +1 forKey:@"ItemId"];
     [userDefaults synchronize];
     return itemId;
+}
+
+-(void)sortList{
+    //按照到期时间从近到远排序
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"dueDate" ascending:YES];
+    NSArray *sortDescriptors = @[sortDescriptor];
+    [self.listItems sortUsingDescriptors:sortDescriptors];
+
 }
 
 @end

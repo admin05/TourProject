@@ -13,5 +13,6 @@
 @property(nonatomic,copy)NSDate *dueDate;
 -(void)saveListItems;
 -(void)loadListItems;
+-(void)sortList;
 +(NSInteger)nextListItemId;
 @end

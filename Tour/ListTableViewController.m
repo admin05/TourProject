@@ -31,6 +31,7 @@
         if (revItem != nil)
         {
             [self.dataModel.listItems addObject:revItem];
+            [self.dataModel sortList];
             [self.tableView reloadData];
             [self.dataModel saveListItems];
         }
@@ -46,6 +47,7 @@
             NSLog(@"所编辑行号为%zd",source.itemPathRow);
             //调试语句结束
             [self.dataModel.listItems replaceObjectAtIndex:source.itemPathRow withObject:revItem];
+            [self.dataModel sortList];
             [self.tableView reloadData];
             [self.dataModel saveListItems];
         }
@@ -75,6 +77,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.dataModel sortList];
 
 }
 
@@ -179,8 +182,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath
                                                                     *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    //Item *tappedItem = [self.Items objectAtIndex:indexPath.row];
-    //tappedItem.completed = !tappedItem.completed;
     [tableView reloadRowsAtIndexPaths:@[indexPath]
                      withRowAnimation:UITableViewRowAnimationNone];
 }
@@ -192,6 +193,5 @@
     NSArray *indexPaths = @[indexPath];
     [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
-
 
 @end
