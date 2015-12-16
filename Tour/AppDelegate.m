@@ -29,10 +29,10 @@
     localNotification.soundName = UILocalNotificationDefaultSoundName;
     [[UIApplication sharedApplication]scheduleLocalNotification:localNotification];*/
     
-    _dataModel = [[DataModel alloc]init];
+    /*_dataModel = [[DataModel alloc]init];
     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
     ListTableViewController *controller = navigationController.viewControllers[0];
-    controller.dataModel = _dataModel;
+    controller.dataModel = _dataModel;*/
     
     return YES;
 }

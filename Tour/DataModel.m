@@ -67,11 +67,13 @@
     return itemId;
 }
 
+//按照到期时间从近到远排序
 -(void)sortList{
-    //按照到期时间从近到远排序
+    NSLog(@"开始执行sortList");
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"dueDate" ascending:YES];
     NSArray *sortDescriptors = @[sortDescriptor];
     [self.listItems sortUsingDescriptors:sortDescriptors];
+    NSLog(@"已执行完成sortList");
 
 }
 
