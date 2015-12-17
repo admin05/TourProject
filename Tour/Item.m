@@ -23,6 +23,7 @@
     [aCoder encodeObject:self.account forKey:@"account"];
     [aCoder encodeObject:[NSNumber numberWithDouble: self.money] forKey:@"money"];
     [aCoder encodeObject:[NSNumber numberWithDouble: self.rate] forKey:@"rate"];
+    [aCoder encodeObject:self.valueDate forKey:@"valueDate"];
     [aCoder encodeObject:self.dueDate forKey:@"dueDate"];
     [aCoder encodeInteger:self.itemId forKey:@"itemId"];
 }
@@ -36,6 +37,7 @@
         self.money = tempNum.doubleValue;
         tempNum=[aDecoder decodeObjectForKey:@"rate"];
         self.rate = tempNum.doubleValue;
+        self.valueDate = [aDecoder decodeObjectForKey:@"valueDate"];
         self.dueDate = [aDecoder decodeObjectForKey:@"dueDate"];
         self.itemId = [aDecoder decodeIntegerForKey:@"itemId"];
     }

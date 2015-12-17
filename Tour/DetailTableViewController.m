@@ -13,19 +13,23 @@
 @property (weak, nonatomic) IBOutlet UITextField *accountField;   //row1
 @property (weak, nonatomic) IBOutlet UITextField *moneyField;     //row2
 @property (weak, nonatomic) IBOutlet UITextField *rateField;      //row3
-@property (weak, nonatomic) IBOutlet UILabel *incomeLabel;        //row4
+@property (weak, nonatomic) IBOutlet UILabel *valueDateLabel;     //row4
 @property (weak, nonatomic) IBOutlet UILabel *dueDateLabel;       //row5
+@property (weak, nonatomic) IBOutlet UILabel *incomeLabel;        //row6
+
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 
 
 
 @end
 //起始row为0
-int const _incomeRow = 4;
-int const _dueDateRow = 5;
-int const _datePickerRow = 6;
+int const VALueDateRow = 4;
+int const DUEDateRow = 5;
+int const INComeRow = 6;
+int const DATePickerRow = 7;
 
 @implementation DetailTableViewController{
+    NSDate *_valueDate;
     NSDate *_dueDate;
     BOOL _datePickerVisible;
 }
@@ -38,6 +42,13 @@ int const _datePickerRow = 6;
     }
     return self;
 }
+
+-(void)updateValueDateLabel{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    self.valueDateLabel.text = [formatter stringFromDate:_valueDate];
+}
+
 
 -(void)updateDueDateLabel{
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
@@ -65,21 +76,14 @@ int const _datePickerRow = 6;
 
 -(double)calcIncome
 {
-    //调试语句开始
     NSLog(@"即将执行calcIncome");
-    //调试语句结束
-
-    //if (self.itemToEdit != nil) {
-        //double income= self.itemToEdit.money*self.itemToEdit.rate /100/360;
     double income=[self.moneyField.text doubleValue]*[self.rateField.text doubleValue]/100/360;
-    NSInteger days=[self daysBetweenDate:[NSDate date] andDate:_dueDate];
+    //NSInteger days=[self daysBetweenDate:[NSDate date] andDate:_dueDate];
+    NSInteger days=[self daysBetweenDate:_valueDate andDate:_dueDate];
     income *= days;
-    //调试语句开始
-    NSLog(@"calcIncome执行完毕 %zd",income);
-    //调试语句结束
+    NSLog(@"calcIncome执行完毕 %.2f",income);
     return income;
-    //}
-    //return 0;
+
 }
 
 -(void)updateIncomeLabel{
@@ -98,6 +102,7 @@ int const _datePickerRow = 6;
     if(self.itemToEdit == nil)
     {
         self.title = @"新增";
+        _valueDate = [NSDate date];
         _dueDate = [NSDate date];
     }else{
         self.title = @"编辑";
@@ -105,16 +110,18 @@ int const _datePickerRow = 6;
         self.accountField.text = self.itemToEdit.account;
         self.moneyField.text = @(self.itemToEdit.money).stringValue;
         self.rateField.text = @(self.itemToEdit.rate).stringValue;
+        _valueDate = self.itemToEdit.valueDate;
         _dueDate = self.itemToEdit.dueDate;
         [self updateIncomeLabel];
         
     }
-    
+    [self updateValueDateLabel];
     [self updateDueDateLabel];
     
 }
 
--(void)showDatePicker{
+
+/*-(void)showDatePicker{
     _datePickerVisible = YES;
     NSIndexPath *indexPathDueDateRow = [NSIndexPath indexPathForRow:_dueDateRow inSection:0];
     NSIndexPath *indexPathDatePicker = [NSIndexPath indexPathForRow:_datePickerRow inSection:0];
@@ -127,10 +134,35 @@ int const _datePickerRow = 6;
     UITableViewCell *datePickerCell = [self.tableView cellForRowAtIndexPath:indexPathDatePicker];
     UIDatePicker *datePicker = (UIDatePicker*)[datePickerCell viewWithTag:100];
     [datePicker setDate:_dueDate animated:NO];
+}*/
+
+-(void)showDatePicker:(NSInteger)datePickerRow forDateRow:(NSInteger)dateRow {
+    _datePickerVisible = YES;
+    NSIndexPath *indexPathDateRow = [NSIndexPath indexPathForRow:dateRow inSection:0];
+    NSIndexPath *indexPathDatePicker = [NSIndexPath indexPathForRow:datePickerRow inSection:0];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPathDateRow];
+    cell.detailTextLabel.textColor = cell.detailTextLabel.tintColor;
+    [self.tableView beginUpdates];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPathDateRow] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView insertRowsAtIndexPaths:@[indexPathDatePicker] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
+    UITableViewCell *datePickerCell = [self.tableView cellForRowAtIndexPath:indexPathDatePicker];
+    UIDatePicker *datePicker = (UIDatePicker*)[datePickerCell viewWithTag:100];
+    if (dateRow==VALueDateRow) {
+        datePicker.tag = VALueDateRow;
+        [datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
+        [datePicker setDate:_valueDate animated:NO];
+    }
+    if (dateRow==DUEDateRow) {
+        datePicker.tag =DUEDateRow;
+        [datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
+        [datePicker setDate:_dueDate animated:NO];
+    }
+
 }
 
 
--(void)hideDatePicker{
+/*-(void)hideDatePicker{
     if(_datePickerVisible){
         _datePickerVisible = NO;
         NSIndexPath *indexPathDateRow = [NSIndexPath indexPathForRow:_dueDateRow inSection:0];
@@ -142,6 +174,50 @@ int const _datePickerRow = 6;
         [self.tableView deleteRowsAtIndexPaths:@[indexPathDatePicker] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
     }
+}*/
+
+-(void)hideDatePicker
+{
+    if(_datePickerVisible){
+        _datePickerVisible = NO;
+        NSIndexPath *indexPathDateRow = [NSIndexPath indexPathForRow:VALueDateRow inSection:0];
+        NSIndexPath *indexPathDatePicker = [NSIndexPath indexPathForRow:DATePickerRow inSection:0];
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPathDateRow];
+        cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
+        [self.tableView beginUpdates];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPathDateRow] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPathDatePicker] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+        
+        indexPathDateRow = [NSIndexPath indexPathForRow:DUEDateRow inSection:0];
+        cell = [self.tableView cellForRowAtIndexPath:indexPathDateRow];
+        cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
+        [self.tableView beginUpdates];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPathDateRow] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView endUpdates];
+   
+        
+    }
+}
+
+
+
+/*-(void)dateChanged:(UIDatePicker*)datePicker{
+    _dueDate = datePicker.date;
+    [self updateDueDateLabel];
+}*/
+
+-(void)dateChanged:(UIDatePicker*)datePicker
+{
+    if (datePicker.tag==VALueDateRow) {
+        _valueDate = datePicker.date;
+        [self updateValueDateLabel];
+    }
+    if (datePicker.tag==DUEDateRow) {
+        _dueDate = datePicker.date;
+        [self updateDueDateLabel];
+    }
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -152,21 +228,16 @@ int const _datePickerRow = 6;
 
 #pragma mark - Table view data source
 
--(void)dateChanged:(UIDatePicker*)datePicker{
-    _dueDate = datePicker.date;
-    [self updateDueDateLabel];
-}
-
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     //调试语句开始
     //NSLog(@"cellForRowAtIndexPath section:%zd,row:%zd",indexPath.section,indexPath.row);
     //调试语句结束
     //检查当前是否存在日期选择器所在行对应的index-path
-    if(indexPath.section ==0 &&indexPath.row == _datePickerRow)
+    if(indexPath.section ==0 &&indexPath.row == DATePickerRow)
     {
         //询问表视图是否已经有了日期选择器的cell。如果没有就创建一个新的。
-        //selection style(选择样式)是none,因为我们不希望在⽤用户触碰它的时候显⽰示⼀一个已选中的状态。
+        //selection style(选择样式)是none,因为我们不希望在用户触碰它的时候显示一个已选中的状态。
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DatePickerCell"];
         if(cell == nil)
         {
@@ -182,7 +253,8 @@ int const _datePickerRow = 6;
             [cell.contentView addSubview:datePicker];
             //告诉日期选择器,每当用户更改了日期的时候调⽤用dateChanged:方法。
             //UIDatePicker的 Value Changed方法将会触发dateChanged方法。
-            [datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
+            //[datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
+            
             //调试语句开始
             NSLog(@"cellForRowAtIndexPath 日期选择控件新建完成");
             //调试语句结束
@@ -205,7 +277,7 @@ int const _datePickerRow = 6;
 {
     // Return the number of rows in the section.
     if(section ==0 && _datePickerVisible){
-        return _datePickerRow+1;
+        return DATePickerRow+1;
     }else{
         return [super tableView:tableView numberOfRowsInSection:section];
     }
@@ -213,7 +285,7 @@ int const _datePickerRow = 6;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.section ==0 &&indexPath.row ==_datePickerRow)
+    if(indexPath.section ==0 &&indexPath.row ==DATePickerRow)
     {
         return 217.0f;
     }else{
@@ -232,21 +304,39 @@ int const _datePickerRow = 6;
     //调试语句开始
     NSLog(@"didSelectRowAtIndexPath money =%@, rate=%@, label= %@",self.moneyField.text,self.rateField.text,
           self.incomeLabel.text);
-    //NSLog(@"didSelectRowAtIndexPath section:%zd,row:%zd",indexPath.section,indexPath.row);
     //调试语句结束
-    if(indexPath.section ==0 &&indexPath.row == _dueDateRow){
+    
+    
+    //如果选中起息日所在行则显示或隐藏日期控件
+    if(indexPath.section ==0 &&indexPath.row == VALueDateRow){
         if(!_datePickerVisible){
-            //调试语句开始
-            NSLog(@"didSelectRowAtIndexPath 即将showDatePicker");
-            //调试语句结束
-            [self showDatePicker];
+            NSLog(@"已选中 %zd 行,即将showDatePicker",indexPath.row);
+            [self showDatePicker:DATePickerRow forDateRow:VALueDateRow ];
         }else{
-            //调试语句开始
-            NSLog(@"didSelectRowAtIndexPath 即将hideDatePicker");
-            //调试语句结束
+            NSLog(@"已选中 %zd 行 即将hideDatePicker",indexPath.row);
             [self hideDatePicker];
+            [self showDatePicker:DATePickerRow forDateRow:VALueDateRow ];
         }
     }
+    
+    //如果选中到期日所在行则显示或隐藏日期控件
+    if(indexPath.section ==0 &&indexPath.row == DUEDateRow){
+        if(!_datePickerVisible){
+            NSLog(@"已选中 %zd 行,即将showDatePicker",indexPath.row);
+            [self showDatePicker:DATePickerRow forDateRow:DUEDateRow ];
+        }else{
+            NSLog(@"已选中 %zd 行 即将hideDatePicker",indexPath.row);
+            [self hideDatePicker];
+            [self showDatePicker:DATePickerRow forDateRow:DUEDateRow ];
+        }
+    }
+    
+    //如果选中预期收益所在行,且日期控件可见,则隐藏日期控件
+    if(indexPath.section ==0 &&indexPath.row == INComeRow && _datePickerVisible){
+        [self hideDatePicker];
+
+    }
+    
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
@@ -254,7 +344,7 @@ int const _datePickerRow = 6;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath: (NSIndexPath *)indexPath{
-    if(indexPath.section ==0 &&indexPath.row ==_datePickerRow)
+    if(indexPath.section ==0 &&indexPath.row ==DATePickerRow)
     {
         NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:0
                                                        inSection:indexPath.section];
@@ -282,6 +372,7 @@ int const _datePickerRow = 6;
             self.NewItem.account = self.accountField.text;
             self.NewItem.money = [self.moneyField.text doubleValue];
             self.NewItem.rate = [self.rateField.text doubleValue];
+            self.NewItem.valueDate=_valueDate;
             self.NewItem.dueDate = _dueDate;
             [self.NewItem scheduleNotification];
   
@@ -294,6 +385,7 @@ int const _datePickerRow = 6;
             self.itemToEdit.account = self.accountField.text;
             self.itemToEdit.money = [self.moneyField.text doubleValue];
             self.itemToEdit.rate = [self.rateField.text doubleValue];
+            self.itemToEdit.valueDate=_valueDate;
             self.itemToEdit.dueDate = _dueDate;
             [self.itemToEdit scheduleNotification];
         }
