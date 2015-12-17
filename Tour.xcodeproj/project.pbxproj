@@ -25,6 +25,7 @@
 		DD9FBCEF1C17CA6000E12815 /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9FBCEE1C17CA6000E12815 /* DetailTableViewController.m */; };
 		DDA1F3B51BD5E11E0062FA2D /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA1F3B41BD5E11E0062FA2D /* Item.m */; };
 		DDB05E971BD4EB64007584E5 /* ListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB05E961BD4EB64007584E5 /* ListTableViewController.m */; };
+		DDE9F15F1C229BCD0021BB52 /* HistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE9F15E1C229BCD0021BB52 /* HistoryTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,8 @@
 		DDA1F3B41BD5E11E0062FA2D /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		DDB05E951BD4EB64007584E5 /* ListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListTableViewController.h; sourceTree = "<group>"; };
 		DDB05E961BD4EB64007584E5 /* ListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListTableViewController.m; sourceTree = "<group>"; };
+		DDE9F15D1C229BCD0021BB52 /* HistoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryTableViewController.h; sourceTree = "<group>"; };
+		DDE9F15E1C229BCD0021BB52 /* HistoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +130,8 @@
 				DD099F0B1BD49C3200BD8B1C /* AppDelegate.h */,
 				DD099F0C1BD49C3200BD8B1C /* AppDelegate.m */,
 				DD099F0E1BD49C3200BD8B1C /* Main.storyboard */,
+				DDE9F15D1C229BCD0021BB52 /* HistoryTableViewController.h */,
+				DDE9F15E1C229BCD0021BB52 /* HistoryTableViewController.m */,
 				DD099F111BD49C3200BD8B1C /* ViewController.h */,
 				DD099F121BD49C3200BD8B1C /* ViewController.m */,
 				DD099F141BD49C3200BD8B1C /* Images.xcassets */,
@@ -269,6 +274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDE9F15F1C229BCD0021BB52 /* HistoryTableViewController.m in Sources */,
 				DD9FBCEF1C17CA6000E12815 /* DetailTableViewController.m in Sources */,
 				DDA1F3B51BD5E11E0062FA2D /* Item.m in Sources */,
 				DD099F131BD49C3200BD8B1C /* ViewController.m in Sources */,

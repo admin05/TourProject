@@ -1,59 +1,20 @@
 //
-//  ListTableViewController.m
+//  HistoryTableViewController.m
 //  Tour
 //
-//  Created by rock on 10/19/15.
+//  Created by rock on 12/17/15.
 //  Copyright (c) 2015 rock. All rights reserved.
 //
 
-#import "ListTableViewController.h"
-#import "Item.h"
+#import "HistoryTableViewController.h"
 #import "DataModel.h"
-#import "DetailTableViewController.h"
+#import "Item.h"
 
-@interface ListTableViewController ()
+@interface HistoryTableViewController ()
 
 @end
 
-@implementation ListTableViewController
-
-
-- (IBAction)unwindToList:(UIStoryboardSegue *)segue {
-    DetailTableViewController *source = [segue sourceViewController];
-    
-    
-    if (source.itemToEdit == nil)
-    {
-        //调试语句开始
-        NSLog(@"unwindToList 列表页开始新增处理");
-        //调试语句结束
-        Item *revItem = source.NewItem;
-        if (revItem != nil)
-        {
-            [self.dataModel.listItems addObject:revItem];
-            [self.dataModel sortList];
-            [self.tableView reloadData];
-            [self.dataModel saveList];
-        }
-     }
-    else{
-        //调试语句开始
-        NSLog(@"unwindToList 列表页开始编辑处理");
-        //调试语句结束
-        Item *revItem = source.itemToEdit;
-        if (revItem != nil)
-        {
-            //调试语句开始
-            NSLog(@"所编辑行号为%zd",source.itemPathRow);
-            //调试语句结束
-            [self.dataModel.listItems replaceObjectAtIndex:source.itemPathRow withObject:revItem];
-            [self.dataModel sortList];
-            [self.tableView reloadData];
-            [self.dataModel saveList];
-        }
-    }
-
-}
+@implementation HistoryTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -79,8 +40,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //[self.dataModel sortList];
-
+    
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+    
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -93,12 +58,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+
     // Return the number of rows in the section.
     return [self.dataModel.listItems count];
 }
@@ -106,16 +73,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ListPrototypeCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HistoryPrototypeCell" forIndexPath:indexPath];
     
     // Configure the cell...
-    Item *cellItem = [self.dataModel.listItems objectAtIndex:indexPath.row];
+    Item *cellItem = [self.dataModel.historyItems objectAtIndex:indexPath.row];
     cell.textLabel.text = cellItem.itemName;
-    //cell.textLabel.text = [NSString stringWithFormat:@"%ld: %@",(long)cellItem.itemId,cellItem.itemName];
-    //cell.detailTextLabel.text = @(cellItem.money).stringValue;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@+%@%%", @(cellItem.money).stringValue, @(cellItem.rate).stringValue ];
-    
-    return cell;
+
+   return cell;
 }
 
 
@@ -157,7 +122,7 @@
 }
 */
 
-
+/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -165,35 +130,7 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if([segue.identifier isEqualToString:@"EditItem"])
-    {
-        UINavigationController *navigationController = segue.destinationViewController;
-        DetailTableViewController *controller = (DetailTableViewController*) navigationController.topViewController;
-        //controller.delegate = self;
-        NSIndexPath * indexPath = [self.tableView indexPathForCell:sender];
-        controller.itemToEdit = self.dataModel.listItems[indexPath.row];
-        controller.itemPathRow=indexPath.row;
-    }
 }
-
-
-
-#pragma mark - Table view delegate
-
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath
-                                                                    *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    [tableView reloadRowsAtIndexPaths:@[indexPath]
-                     withRowAnimation:UITableViewRowAnimationNone];
-}
-
-
--(void)tableView:(UITableView *)tableView commitEditingStyle: (UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self.dataModel.listItems removeObjectAtIndex:indexPath.row];
-    [self.dataModel saveList];
-    NSArray *indexPaths = @[indexPath];
-    [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-}
+*/
 
 @end
