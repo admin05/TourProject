@@ -68,13 +68,9 @@
     if((self =[super initWithCoder:aDecoder]))
     {
         NSLog(@"下面即将执行loadListItems");
-
         _dataModel = [[DataModel alloc]init];
         self.dataModel = _dataModel;
-
-        [self.dataModel loadListItems];
-        NSLog(@"执行完成loadListItems");
-        
+        NSLog(@"执行完成loadListItems");      
     }
     return self;
 }
